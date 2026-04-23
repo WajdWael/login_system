@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 
-# ---------- App Configuration ----------
 app = Flask(__name__)
 app.secret_key = 'your-secret-key-change-in-production'  # Needed for session & flash messages
 
@@ -18,7 +17,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password_hash = db.Column(db.String(200), nullable=False)
-    role = db.Column(db.String(20), nullable=False, default='user')  # 'admin' or 'user'
+    role = db.Column(db.String(20), nullable=False, default='user')
 
     def set_password(self, password):
         """Hashes the password and stores it."""
@@ -35,7 +34,7 @@ class User(db.Model):
 with app.app_context():
     db.create_all()
 
-# ---------- Helper: Role‑based access decorator ----------
+# ---------- Role‑based access decorator ----------
 def role_required(required_role):
     def decorator(f):
         @wraps(f)
@@ -52,7 +51,6 @@ def role_required(required_role):
     return decorator
 
 # ---------- Routes ----------
-
 @app.route('/')
 def index():
     """Home page – redirects to login or dashboard if already logged in."""
@@ -127,7 +125,7 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('login'))
 
-# ---------- Create an admin user if none exists (useful for first run) ----------
+# ---------- Create an admin user ----------
 def create_admin_if_needed():
     with app.app_context():
         admin = User.query.filter_by(role='admin').first()
@@ -142,6 +140,5 @@ def create_admin_if_needed():
 
 create_admin_if_needed()
 
-# ---------- Run the app ----------
 if __name__ == '__main__':
     app.run(debug=True)
