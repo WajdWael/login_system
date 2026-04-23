@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Flask Login System{% endblock %}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+        .container { max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+        .flash { padding: 10px; margin-bottom: 15px; border-radius: 4px; }
+        .flash.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .flash.danger { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .flash.warning { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .flash.info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        input[type="text"], input[type="password"] { width: 100%; padding: 8px; margin: 8px 0; display: block; }
+        button { background: #007bff; color: white; padding: 10px 15px; border: none; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        a { margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
