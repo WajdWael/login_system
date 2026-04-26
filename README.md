@@ -31,14 +31,14 @@ http://127.0.0.1:5000
 
 ## Project Structure
 flask_login_system/
-├── app.py
-├── templates/
-│   ├── base.html
-│   ├── login.html
-│   ├── register.html
-│   ├── dashboard.html
-│   └── admin.html
-└── README.md
+app.py
+ templates/
+─ base.html
+─ login.html
+─ register.html
+─ dashboard.html
+─ admin.html
+─ README.md
 
 ## Course
 CS471 - Computer Security
